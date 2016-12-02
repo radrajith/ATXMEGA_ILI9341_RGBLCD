@@ -41,7 +41,6 @@ int main(void)
 	gfx_print("1.23 A");
 	gfx_println("its working");
 	//################Finish building gfx_println function###################
-	
 	//gfx_write('R');
 	while(1)
 	{

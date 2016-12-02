@@ -2,6 +2,7 @@
 #include "gfx.h"
 #include "SystemFont5x7.h"		//has all the fonts information
 #include <string.h>
+#include "images.h"
 
 static const unsigned char font[] PROGMEM = {
 	0x00, 0x00, 0x00, 0x00, 0x00,
@@ -347,6 +348,23 @@ void gfx_write(char c){
 		gfx_drawChar(cursor_x, cursor_y, c, textColor, bgcolor, textSize);
 		cursor_x += textSize*6;
 	}
+}
+void gfx_printImage(){
+		uint16_t i,j;
+		int x =0;
+		setAddress(0,0,width-1,height-1);
+		
+		for(i=0;i<width;i++)
+		{
+			for(j=0;j<height;j++)
+			{
+				if(x<1000){
+				pushColor(images[x]);
+				x++;
+				}
+			}
+		}
+
 }
 void gfx_backupLocationVset(void){
 	

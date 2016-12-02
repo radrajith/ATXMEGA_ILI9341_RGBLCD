@@ -41,7 +41,7 @@ void spi_init_hardware(void){
 void spi_init(void){
 	SPIDDR |= (1<<CS)|(1<<MOSI)|(1<<SCK);		//set cs, mosi, sck as output
 	SPIC_CTRL |= (1<<SPI_ENABLE_bp)|(1<<SPI_MASTER_bp);		//enable the SPI and set it as master. (confirm wheater it should be _bm or _bp
-	//SPIC_CTRL |= (1<<SPI_CLK2X_bp);						//double the spi speed
+	SPIC_CTRL |= (1<<SPI_CLK2X_bp);						//double the spi speed
 	//SPIC_CTRL |= (1<<SPI_PRESCALER0_bp);
 	//SPIC_CTRL &= ~(1<<SPI_PRESCALER1_bp);
 	SPIPORT |= (1<<CS);
@@ -64,6 +64,7 @@ void spi_writeData(uint8_t data){
 	//_delay_us(1);
 	SPIPORT &= ~(1<<CS);				//CS set high for
 	spi_send(data);
+	//_delay_us(5);
 	SPIPORT |= (1<<CS);
 }
 void setAddress(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2){
