@@ -1,9 +1,9 @@
 ﻿
 #include "ili9341.h"
 
+unsigned int width;
+unsigned int height;
 
-unsigned int width = TFTHEIGHT;
-unsigned int height = TFTWIDTH;
 int getHeight(){
 	return height;
 }
@@ -91,6 +91,8 @@ void reset(void){
 }
 //void clear();
 void begin(void){
+	width = TFTHEIGHT;
+	height = TFTWIDTH;
 	spi_init_hardware();
 	spi_init();
 	reset();
@@ -301,22 +303,22 @@ void setRotation(uint8_t x){
 	switch (rotation)
 	{
 		case 0:
-		spi_writeCommand(0x40|0x08);
+		spi_writeData(0x40|0x08);
 		width = 240;
 		height = 320;
 		break;
 		case 1:
-		spi_writeCommand(0x20|0x08);
+		spi_writeData(0x20|0x08);
 		width  = 320;
 		height = 240;
 		break;
 		case 2:
-		spi_writeCommand(0x80|0x08);
+		spi_writeData(0x80|0x08);
 		width  = 240;
 		height = 320;
 		break;
 		case 3:
-		spi_writeCommand(0x40|0x80|0x20|0x08);
+		spi_writeData(0x40|0x80|0x20|0x08);
 		width  = 320;
 		height = 240;
 		break;

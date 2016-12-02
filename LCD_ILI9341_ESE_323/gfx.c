@@ -322,6 +322,19 @@ void gfx_print(char *string){
 			}
 		} 
 }
+void gfx_println(char *string){
+	char *i;
+	gfx_setCursor(20, cursor_y+(8*textSize));
+	for (i=string; *i; i++) {
+		//write the char'
+		gfx_write(*i);
+		printf("%c", string);
+		if(string =='\0')
+		{
+			break;
+		}
+	}
+}
 void gfx_write(char c){
 	if (c == '\n') {
 		cursor_y += textSize*8;
