@@ -31,6 +31,7 @@ void gainAdjust(int volt){
 int adc_get(){
 	adc_singleSample();
 	int voltage = ADCA_TEMP;
+	/*
 	if(voltage >=0.96){
 		gainAdjust(voltage);
 		adc_get();
@@ -39,5 +40,6 @@ int adc_get(){
 		gainAdjust(voltage);
 		adc_get();
 	}
+	*/
 	return voltage
 }

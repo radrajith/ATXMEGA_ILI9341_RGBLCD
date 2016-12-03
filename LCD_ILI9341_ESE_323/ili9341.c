@@ -16,7 +16,7 @@ void clkSet(){
 	while(!(OSC.STATUS & OSC_RC32MRDY_bm));			//wait for oscillator to be stable
 	//_delay_us(10);
 	CCP = CCP_IOREG_gc;
-	OSC.CTRL &= ~OSC_RC2MEN_bm;
+	OSC_CTRL &= ~OSC_RC2MEN_bm;
 	CLK_CTRL |= 0x01 ;						//select 32Mhz clock by making sclksel - 001
 }
 
@@ -25,9 +25,17 @@ void setup32(){
 	OSC_CTRL |= OSC_RC8MEN_bm;
 	while(!(OSC_STATUS & OSC_RC8MRDY_bm));
 	CCP = CCP_IOREG_gc;
-	CLK_CTRL= CLK_SCLKSEL_RC8M_gc;
+	CLK_CTRL= CLK_SCLKSEL_RC2M_gc;
+	//CCP = CCP_IOREG_gc
+	OSC_PLLCTRL = OSC_PLLSRC_RC8M_gc;
+	OSC_PLLCTRL= (OSC_PLLFAC4_bm)|(OSC_PLLFAC3_bm);//|(OSC_PLLFAC2_bm);		//selecting PLL to run at 16* 8M hz = 128 Mhz.
+	//_delay_ms(10);
+	OSC_CTRL = OSC_PLLEN_bm;
+	while(!(OSC_STATUS & OSC_PLLRDY_bm));
+	
 	CCP = CCP_IOREG_gc;
-	CLK_PSCTRL = CLK_PSADIV_2_gc;
+	CLK_CTRL= CLK_SCLKSEL_PLL_gc;
+	//CLK_PSCTRL = CLK_PSADIV_2_gc;
 }
 
 
@@ -42,8 +50,8 @@ void spi_init(void){
 	SPIDDR |= (1<<CS)|(1<<MOSI)|(1<<SCK);		//set cs, mosi, sck as output
 	SPIC_CTRL |= (1<<SPI_ENABLE_bp)|(1<<SPI_MASTER_bp);		//enable the SPI and set it as master. (confirm wheater it should be _bm or _bp
 	SPIC_CTRL |= (1<<SPI_CLK2X_bp);						//double the spi speed
-	//SPIC_CTRL |= (1<<SPI_PRESCALER0_bp);
-	//SPIC_CTRL &= ~(1<<SPI_PRESCALER1_bp);
+	//SPIC_CTRL |= (1<<SPI_PRESCALER1_bp);
+	//SPIC_CTRL &= ~(1<<SPI_PRESCALER0_bp);
 	SPIPORT |= (1<<CS);
 
 }
@@ -98,7 +106,7 @@ void begin(void){
 	spi_init();
 	reset();
 	spi_writeCommand(0x01);		//software reset
-	//_delay_ms(1000);
+	_delay_ms(1200);
 	//clear(ILI9341_YELLOW);
 	//power control A
 	spi_writeCommand(0xCB);
@@ -293,8 +301,18 @@ void fillrect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color){
 		}
 	}
 }
-void fillScreen(uint16_t color){
-	clear(color);
+void fillScreen(){
+		uint16_t i,j;
+		setAddress(0,0,width-1,height-1);
+		
+		for(i=0;i<width;i++)
+		{
+			for(j=0;j<height;j++)
+			{
+				uint16_t colorx = rand();
+				pushColor(colorx);
+			}
+		}
 }
 
 void setRotation(uint8_t x){

@@ -9,6 +9,7 @@
 #include "ili9341.h"
 #include "gfx.h"
 #include "adc.h"
+#include "snake.h"
 void rotate(){
 	setRotation(2);
 }
@@ -20,17 +21,19 @@ void readADC(){
 int main(void)
 {
 	begin();					//initialize spi driver
-	setRotation(3);
+	setRotation(1);
 	clear(ILI9341_RED);
+	//fillScreen();				//random background generator
 	gfx_setTextColor(ILI9341_PURPLE);
 	gfx_setCursor(20, 20);
 	gfx_setTextSize(5);
-	gfx_setBgColor(ILI9341_RED);
+	gfx_setBgColor(ILI9341_WHITE);
 	//clear(ILI9341_GOLD);		//clear the
 					//change this between 0 and 3 depending on the orientation of the
 	//gfx_print('hey');
 	gfx_print("CODED");
 	//gfx_write('\n');
+	
 	gfx_setTextSize(3);
 	gfx_setTextColor(ILI9341_GREEN);
 	gfx_setCursor(20, 80);
@@ -39,23 +42,30 @@ int main(void)
 	gfx_setCursor(20,120);
 	gfx_print("=]");
 	gfx_print("1.23 A");
+	//gfx_printInt(34);
 	gfx_println("its working");
+	clear(ILI9341_BLACK);
+	//fix printing any variable 
+	//_delay_ms(5000);
+	//snake_init();
 	//################Finish building gfx_println function###################
 	//gfx_write('R');
-	while(1)
+	drawPixel(50,50, ILI9341_BLACK);
+	drawHLine(0, getHeight()/2, getWidth(), ILI9341_BLUE);
+	drawVLine(getWidth()/2, 0, getHeight(), ILI9341_BLUE);
+	for (int i = 1; i < 318; i++)
 	{
 		
-		//_delay_ms(1000);
-		//TODO:://write to data register Please write your application code
-		//clear(ILI9341_BLUEVIOLET);
-		//gfx_write('2');
-		//adc_init(POS_ADC0, NEG_ADC1);		//the adc used for pos and neg are passed in
-		//gfx_write(adc_get());
-		_delay_ms(10);
-		
-		//clear(ILI9341_BROWN);
-		//clear(ILI9341_DEEPPINK);
+		drawPixel(i , sin(3.14) ,  ILI9341_CYAN);
+	}
+	while(1)
+	{
+		//snake_run();
+		//clear(ILI9341_WHITE);
+		//_delay_ms(100000);
 		//clear(ILI9341_GREEN);
-		//_delay_ms(100);
+		//clear(ILI9341_BLACK);
+		
+		//_delay_ms(1000);
 	}
 }

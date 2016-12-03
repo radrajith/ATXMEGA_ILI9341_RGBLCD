@@ -21,6 +21,19 @@
 #define NEG_ADC2 ADC_CH_MUXNEGL_PIN2_gc
 #define NEG_ADC3 ADC_CH_MUXNEGL_PIN3_gc
 #define NEG_ADC4 ADC_CH_MUXNEGH_PIN4_gc
-#define NEG_ADC4 ADC_CH_MUXNEGH_PIN5_gc
-#define NEG_ADC4 ADC_CH_MUXNEGH_PIN6_gc
-#define NEG_ADC4 ADC_CH_MUXNEGH_PIN7_gc
+#define NEG_ADC5 ADC_CH_MUXNEGH_PIN5_gc
+#define NEG_ADC6 ADC_CH_MUXNEGH_PIN6_gc
+#define NEG_ADC7 ADC_CH_MUXNEGH_PIN7_gc
+
+#ifndef ADC_H
+#define ADC_H
+
+
+unsigned int gainFactor = 8;
+void adc_init(char pos, char neg);
+void adc_pinSelect(char pos,char neg);
+void adc_runContinuous();
+void adc_singleSample();
+void gainAdjust(int volt);
+int adc_get();
+#endif

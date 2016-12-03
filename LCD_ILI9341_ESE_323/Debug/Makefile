@@ -40,7 +40,8 @@ C_SRCS +=  \
 ../adc.c \
 ../gfx.c \
 ../ili9341.c \
-../main.c
+../main.c \
+../snake.c
 
 
 PREPROCESSING_SRCS += 
@@ -53,25 +54,29 @@ OBJS +=  \
 adc.o \
 gfx.o \
 ili9341.o \
-main.o
+main.o \
+snake.o
 
 OBJS_AS_ARGS +=  \
 adc.o \
 gfx.o \
 ili9341.o \
-main.o
+main.o \
+snake.o
 
 C_DEPS +=  \
 adc.d \
 gfx.d \
 ili9341.d \
-main.d
+main.d \
+snake.d
 
 C_DEPS_AS_ARGS +=  \
 adc.d \
 gfx.d \
 ili9341.d \
-main.d
+main.d \
+snake.d
 
 OUTPUT_FILE_PATH +=LCD_ILI9341_ESE_323.elf
 
@@ -87,6 +92,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

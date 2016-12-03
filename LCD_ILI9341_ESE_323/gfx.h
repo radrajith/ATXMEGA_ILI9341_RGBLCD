@@ -14,6 +14,7 @@ void gfx_setTextColor(uint16_t color);
 void gfx_setBgColor(uint16_t color);
 void gfx_setTextSize(uint8_t size);
 void gfx_print(char *string);
+//void gfx_printInt(int val);
 void gfx_write(char c);
 void gfx_backupLocationVset(void);
 void gfx_backupLocationVactual(void);
