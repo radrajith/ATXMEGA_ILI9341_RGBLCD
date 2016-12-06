@@ -28,7 +28,7 @@ void setup32(){
 	CLK_CTRL= CLK_SCLKSEL_RC2M_gc;
 	//CCP = CCP_IOREG_gc
 	OSC_PLLCTRL = OSC_PLLSRC_RC8M_gc;
-	OSC_PLLCTRL= (OSC_PLLFAC4_bm)|(OSC_PLLFAC3_bm);//|(OSC_PLLFAC2_bm);		//selecting PLL to run at 16* 8M hz = 128 Mhz.
+	OSC_PLLCTRL= (OSC_PLLFAC4_bm)|(OSC_PLLFAC2_bm)|(OSC_PLLFAC1_bm)|(OSC_PLLFAC0_bm);		//selecting PLL to run at 16* 8M hz = 128 Mhz.
 	//_delay_ms(10);
 	OSC_CTRL = OSC_PLLEN_bm;
 	while(!(OSC_STATUS & OSC_PLLRDY_bm));

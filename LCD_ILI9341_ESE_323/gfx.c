@@ -315,21 +315,18 @@ void gfx_print(char *string){
 		for (i=string; *i; i++) {
 			//write the char'
 			gfx_write(*i);
-			printf("%c", string);
 			if(string =='\0')
 			{
 				break;
 			}
 		} 
 }
-
 void gfx_println(char *string){
 	char *i;
 	gfx_setCursor(20, cursor_y+(8*textSize));
 	for (i=string; *i; i++) {
 		//write the char'
 		gfx_write(*i);
-		printf("%c", string);
 		if(string =='\0')
 		{
 			break;

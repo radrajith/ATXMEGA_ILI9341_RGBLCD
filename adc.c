@@ -1,7 +1,8 @@
-#include <adc.h>
+#include "adc.h"
 
 
 unsigned int gainFactor = 8;
+
 void adc_init(char pos, char neg){
 	ADCA_CTRLA |= (1<<ADC_ENABLE_bp)|(1<<ADC_START_bp);		//start and enable ADC
 	ADCA_REFCTRL |= (0<<ADC_REFSEL0_bp)|(0<<ADC_REFSEL1_bp)|(0<<ADC_REFSEL2_bp)|(1<<ADC_BANDGAP_bp);	//set to use internal 1v reference and turn on bandgap reference
@@ -28,9 +29,9 @@ void adc_singleSample(){
 void gainAdjust(int volt){
 	
 }
-int adc_get(){
+double adc_get(){
 	adc_singleSample();
-	int voltage = ADCA_TEMP;
+	double voltage = ADCA_TEMP;
 	/*
 	if(voltage >=0.96){
 		gainAdjust(voltage);
