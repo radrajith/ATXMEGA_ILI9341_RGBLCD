@@ -24,10 +24,15 @@ void readADC(){
 	double voltage = adc_get();
 	char value[5];
 	sprintf(value, "%.3f", voltage);
-	gfx_setCursor(20,180);
+	gfx_setCursor(20,160);
 	gfx_print(value);
+	double voltage1 = voltage/4096;
+	//voltage1 = (voltage1)/32;
+	gfx_setCursor(20,180);
+	sprintf(value, "%.3f", voltage1);
+	gfx_println(value);
 	//return value;
-}
+    }
 void startupScreen(){
 	int color = 0;
 	int a = 0;
@@ -78,8 +83,8 @@ int main(void)
 	
 	//readADC();
 	//gfx_printInt(34);
-	gfx_println("its working");
-	gfx_println();
+	//gfx_println("its working");
+	//gfx_println();
 	
 	while(1)
 	{

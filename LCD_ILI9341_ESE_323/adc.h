@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <inttypes.h>
+#include <util/delay.h>
 #define POS_ADC0 ADC_CH_MUXPOS_PIN0_gc
 #define POS_ADC1 ADC_CH_MUXPOS_PIN1_gc
 #define POS_ADC2 ADC_CH_MUXPOS_PIN2_gc
