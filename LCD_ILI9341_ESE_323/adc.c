@@ -10,14 +10,33 @@ int state = 1;
 
 void adc_init(char pos, char neg){
 	state = 3;
-	ADCA_CH0_CTRL = (ADC_CH_GAIN_32X_gc|ADC_CH_INPUTMODE_DIFFWGAINL_gc|ADC_CH_START_bm);
-	ADCA_CH0_MUXCTRL = (pos|neg);		//
-	ADCA_CTRLA |= (1<<ADC_ENABLE_bp);	//start and enable ADC
-	ADCA_PRESCALER = ADC_PRESCALER_DIV32_gc;
-	//ADCA_CTRLB	|= ADC_convmode
+		PORTA_DIR = 0x00;
+		//PORTA_OUT &= ~(PIN0_bm|PIN1_bm);
 	
-	adc_pinSelect(pos,neg);
+		//start and enable ADC
+	ADCA_CTRLB = ADC_RESOLUTION_12BIT_gc;
+	
+	//ADCA_REFCTRL &= 
+	ADCA_REFCTRL = (ADC_BANDGAP_bm)|(ADC_REFSEL_INT1V_gc);
+	ADCA_PRESCALER = ADC_PRESCALER_DIV256_gc;
+	ADCA_CTRLA |= (1<<ADC_ENABLE_bp);
+	//ADCA_CAL = (0x0FFF & ((PRODSIGNATURES_ADCACAL1<<8)| PRODSIGNATURES_ADCACAL0));
+	_delay_ms(1000);
+	ADCA_CH0_CTRL = (ADC_CH_GAIN_32X_gc)|(ADC_CH_INPUTMODE_DIFFWGAINL_gc);
+	ADCA_CH0_MUXCTRL = (ADC_CH_MUXPOS_PIN0_gc)|(ADC_CH_MUXNEGL_PIN1_gc);		//
+	
+	//ADCA_CTRLA |= ADC_START_bm;
+	//adc_pinSelect(pos,neg);
 	//implement event interrupt
+}
+void adc_singleSample(){
+
+	//ADCA_CTRLA |= ADC_START_bm;
+	ADCA_CH0_CTRL |= ADC_CH_START_bm;
+	_delay_ms(100);
+	//ADCA_CTRLA |= (1<<ADC_FREERUN_bp);
+	while(ADCA_INTFLAGS ==0);
+	ADCA_INTFLAGS = ADC_CH0IF_bm;
 }
 void adc_pinSelect(char pos,char neg){
 	/*
@@ -37,11 +56,7 @@ void adc_pinSelect(char pos,char neg){
 void adc_runContinuous(){
 	ADCA_CTRLA |= (1<<ADC_FREERUN_bp);
 }
-void adc_singleSample(){
-	ADCA_CTRLA |= ADC_START_bm;
-	//ADCA_CTRLA &= (0<<ADC_FREERUN_bp);
-	_delay_ms(100);
-}
+
 void gainAdjust(int volt){
 	
 	int inc = 0;

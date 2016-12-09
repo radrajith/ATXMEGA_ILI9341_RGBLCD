@@ -26,7 +26,7 @@ void readADC(){
 	sprintf(value, "%.3f", voltage);
 	gfx_setCursor(20,160);
 	gfx_print(value);
-	double voltage1 = voltage/4096;
+	double voltage1 = voltage/4095;
 	//voltage1 = (voltage1)/32;
 	gfx_setCursor(20,180);
 	sprintf(value, "%.3f", voltage1);
@@ -60,7 +60,7 @@ void startupScreen(){
 int main(void)
 {
 	begin();					//initialize spi driver
-	setRotation(1);
+	setRotation(3);
 	clear(ILI9341_RED);
 	//fillScreen();				//random background generator
 	gfx_setTextColor(ILI9341_PURPLE);
