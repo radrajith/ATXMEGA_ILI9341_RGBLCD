@@ -20,7 +20,7 @@ void rotate(){
 	setRotation(2);
 }
 void readADC(){
-	adc_init(POS_ADC0, NEG_ADC1);		//the adc used for pos and neg are passed in
+	adc_init(POS_ADC0, NEG_ADC1);		//the adc used for pos  d neg are passed in
 	double voltage = adc_get();
 	char value[5];
 	sprintf(value, "%.3f", voltage);
@@ -49,6 +49,7 @@ void startupScreen(){
 		axis = i;
 	}
 	gfx_setCursor(axis+10, axis+10);
+	gfx_setBgColor(ILI9341_WHITE);
 	gfx_setTextColor(ILI9341_RED);
 	gfx_setTextSize(3);
 	//setRotation(3);
@@ -61,23 +62,25 @@ int main(void)
 {
 	begin();					//initialize spi driver
 	setRotation(3);
-	clear(ILI9341_RED);
-	//fillScreen();				//random background generator
-	gfx_setTextColor(ILI9341_PURPLE);
-	gfx_setCursor(20, 20);
+	clear(ILI9341_ORANGERED);
+	startupScreen();				//random background generator
+	gfx_setTextColor(ILI9341_BLUE);
+	gfx_setCursor(0, 20);
 	gfx_setTextSize(5);
-	gfx_setBgColor(ILI9341_WHITE);
-	//clear(ILI9341_GOLD);		//clear the
+	gfx_setBgColor(ILI9341_ORANGERED);
+	
+	clear(ILI9341_ORANGERED);		//clear the
 					//change this between 0 and 3 depending on the orientation of the
 	//gfx_print('hey');
-	gfx_print("CODED");
-	//gfx_write('\n');
+	gfx_print("Coded by");
+	gfx_write('\n');
+	gfx_setCursor(0, 100);
+	gfx_print("DAN CAO");
 	
-	
-	gfx_setTextSize(3);
-	gfx_setTextColor(ILI9341_GREEN);
-	gfx_setCursor(20, 80);
-	gfx_print("BY RAJITH");
+	gfx_setTextSize(2);
+	gfx_setTextColor(ILI9341_YELLOW);
+	gfx_setCursor(0, 160);
+	gfx_print("ESE 323 - Fall 2016");
 	gfx_setTextColor(ILI9341_DEEPPINK);
 	gfx_setCursor(20,120);
 	
@@ -96,9 +99,9 @@ int main(void)
 			clear(ILI9341_BLACK);
 		}
 		*/
-		readADC();
+		//readADC();
 		//snake_update(1);
-		_delay_ms(10000);
+		//_delay_ms(10000);
 		//Snake_display();
 	}
 }
