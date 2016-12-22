@@ -75,7 +75,7 @@ int main(void)
 	gfx_print("Coded by");
 	gfx_write('\n');
 	gfx_setCursor(0, 100);
-	gfx_print("DAN CAO");
+	gfx_print("Rajith");
 	
 	gfx_setTextSize(2);
 	gfx_setTextColor(ILI9341_YELLOW);
